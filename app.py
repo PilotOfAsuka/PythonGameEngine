@@ -2,6 +2,7 @@ import configs
 import pygame
 import surface
 import colors
+import main
 # Класс Арр определяет окно Pygame и его цикл        
 class App:
     def __init__(self):
@@ -10,13 +11,12 @@ class App:
         self.surface = surface.Surface(self.screen)
     # Обработка Евентов Pygame    
     def event(self):
-        self.surface.move_objs()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.run = False
     # Активация и отрисовка графической части окна            
     def draw(self):
-        self.screen.fill(colors.BLACK)  
+        self.screen.fill(colors.colors["white"])  
         self.surface.draw_objs()
     # Основной цикл       
     def loop(self):
@@ -24,4 +24,4 @@ class App:
             self.draw()
             self.event()
             pygame.display.flip() # из за этой стройки мучался блин , черный экран был
-            pygame.time.delay(100) # ФПС ННАДА!!
+            main.clock.tick(configs.FPS)# ФПС ННАДА!!

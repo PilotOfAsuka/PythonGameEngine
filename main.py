@@ -1,13 +1,31 @@
 # ИмПоРтЫ
 import pygame
 import app
-import objects as obj
+import objects as objs
 import colors as c
+import func
+import configs as cfg
+
 # Инициализация Pygame
 pygame.init()
+clock = pygame.time.Clock()
 
-#objs = Sqare(100,100,RED)  
-objs = [obj.Square(0,0,c.RED),obj.Square(100,100,c.GREEN),obj.Square(200,200,c.BLUE),obj.Square(100,200,c.RED), obj.Circle(75,75,c.BLUE,50)]
+# Инициализация двумерного массива мира
+world_grid = [[None for _ in range(cfg.GRID_SIZE_W)] for _ in range(cfg.GRID_SIZE_H)]
+
+# Создаем 10 квадратиков
+for _ in range(10):
+    x, y = func.random_position(world_grid)
+    obj = objs.Square(x,y, c.random_color())
+    world_grid[y][x] = obj
+    
+# Создаем 10 кружочков
+for _ in range(10):
+    x, y = func.random_position(world_grid)
+    obj = objs.Circle(x,y, c.random_color())
+    world_grid[y][x] = obj
+
+
 # Main.py :D  
 if __name__ == "__main__":
     app = app.App()
