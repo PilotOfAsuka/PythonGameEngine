@@ -1,6 +1,7 @@
 import pygame
 import ingamelogic as brain
 import configs as cfg
+
 # Класс OBJ определяет родительский класс обьектов основные параметры обьекта координаты и к примеру цвет
 class OBJ:
     def __init__(self, x, y, color):
@@ -24,4 +25,22 @@ class Circle(OBJ):
         super().__init__(x, y, color)
     # Функция отрисовки круга   
     def draw_obj(self, world):
-        pygame.draw.circle(world,self.color,(self.coord[0] * (cfg.CELL_SIZE) + cfg.CELL_SIZE/2, self.coord[1] * (cfg.CELL_SIZE)+ cfg.CELL_SIZE/2), cfg.CELL_SIZE/2)    
+        pygame.draw.circle(world,self.color,(self.coord[0] * (cfg.CELL_SIZE) + cfg.CELL_SIZE/2, self.coord[1] * (cfg.CELL_SIZE)+ cfg.CELL_SIZE/2), cfg.CELL_SIZE/2)   
+        
+# Класс комплексного обьекта
+class ComplexObj:
+    def __init__(self, matrix, start_x, start_y, color):
+        self.coord = [start_x, start_y]
+        self.squares = [] # массив комплексного обьекта
+        # Конструктор обьектов
+        for y, row in enumerate(matrix):
+            square_row = []
+            for x, cell in enumerate(row):
+                if cell == 1:
+                    square = Square(self.coord[0] + x, self.coord[1] + y, color)
+                    square_row.append(square)
+                else:
+                    square_row.append(None)
+            self.squares.append(square_row)
+
+        
