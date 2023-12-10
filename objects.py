@@ -1,23 +1,19 @@
 import pygame
-import ingamelogic as brain
 import configs as cfg
 
 # Класс OBJ определяет родительский класс обьектов основные параметры обьекта координаты и к примеру цвет
 class OBJ:
     def __init__(self, x, y, color):
         self.color = color # Цвет обьекта
-        self.coord = [x,y] # Координаты обьекта
-        self.logic = brain.InGameLogic()
+        self.x = x # Координаты обьекта
+        self.y = y # Координаты обьекта
         # Нужно дополнить (Физика?)
 
 # Класс Square определяет  дочерний класс обьекта "Квадрат" имеет функцию отрисовки
 class Square(OBJ):
     def __init__(self, x, y, color):
         super().__init__(x, y, color)
-    # Функция отрисовки квадрата   
-    def draw_obj(self, world):
-        param = pygame.Rect(self.coord[0] * cfg.CELL_SIZE ,self.coord[1] * cfg.CELL_SIZE ,cfg.CELL_SIZE, cfg.CELL_SIZE)
-        pygame.draw.rect(world, self.color, param) 
+
 
 #Класс Circle опредделяет дочерний класс обьекта "Круг"
 class Circle(OBJ):
@@ -43,4 +39,20 @@ class ComplexObj:
                     square_row.append(None)
             self.squares.append(square_row)
 
+class Ship(OBJ):
+    def __init__(self, x, y, color):
+        super().__init__(x, y, color)     
+        self.move_x_left = False
+        self.move_x_right = False
+        self.move_y_up = False
+        self.move_y_down = False
+        self.dir_index = 0
         
+    def move_obj(self, dir_index):
+        dx, dy = cfg.move_directions[dir_index]
+        if self.move_x_left == True or self.move_x_right == True:
+            new_x = (self.x + dx) % cfg.GRID_SIZE_W
+            self.x = new_x
+        if self.move_y_up == True or self.move_y_down == True:    
+            new_y = (self.y + dy) % cfg.GRID_SIZE_H
+            self.y = new_y

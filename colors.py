@@ -1,15 +1,8 @@
-import random
+# Просто цвета, надо изучить цвета из Pygame
+# Цвета
+BKG_COLOR = 6, 189, 189
+WHITE = 255, 255, 255
+BLACK = 0, 0, 0
+RED = 255,0,0
+FOOD_COLOR = 133,133,133
 
-# словарь цветов
-colors = {"black": (0,0,0), 
-          "red" : (255,0,0),
-          "green" : (0,255,0),
-          "blue" : (0,0,255),
-          "white": (255,255,255)
-          }
-
-# Функция определения рандомного цвета из словаря
-def random_color():
-    color = list(colors.values())
-    random_color = random.choice(color)
-    return random_color
